@@ -48,6 +48,7 @@
     <Compile Include="Assets\Scripts\AnimText.cs" />
     <Compile Include="Assets\Scripts\SubTheme.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\SecondSCreen.cs" />
     <Compile Include="Assets\Scripts\ThemePanel.cs" />
     <Compile Include="Assets\Scripts\ThemeButton.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -44,12 +44,12 @@ public class GameManager : MonoBehaviour
     public List<string> Default_Uzb = new List<string>();
     [HideInInspector] public List<string> Default_Eng = new List<string>();
     [HideInInspector] public List<string> Default_Arab = new List<string>();
-
-    public AnimText MainText;
+    
     public string Main_Rus;
     public string Main_Uzb;
 
     public Button ClickDefault;
+    public SecondSCreen SecondScreen;
     
     private float _time = 0;
     private Coroutine _coroutine;
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         {
             animText.Init();
         }
-        MainText.Init();
+       
         
         Lang_Uzb.onClick.AddListener(OnLangUzb);
         Lang_Rus.onClick.AddListener(OnLangRus);
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OnLangUzb()
+    public void OnLangUzb()
     {
         Lang_Uzb.enabled = false;
         Lang_Rus.enabled = true;
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
         Lang_Rus.image.DOColor(new Color(_colorLang.r, _colorLang.g,_colorLang.b, 0f), 0.2f);
     }
 
-    private void OnLangRus()
+    public void OnLangRus()
     { 
         Lang_Uzb.enabled = true;
         Lang_Rus.enabled = false;
@@ -137,6 +137,12 @@ public class GameManager : MonoBehaviour
             {
                 button.TextJuicer.SetProgress(progress);
                 button.TextJuicer.Update();
+            }
+
+            foreach (var textJuicer in SecondScreen.TextJuicers)
+            {
+                textJuicer.SetProgress(progress);
+                textJuicer.Update();
             }
             
             ZagolovokJuicer.SetProgress(progress);
@@ -170,6 +176,7 @@ public class GameManager : MonoBehaviour
         }
 
         ZagolovokJuicer.Text = Zagolovok[CurrentLang];
+        SecondScreen.ChangeLeng();
 
         if (CurrentTheme != null)
         {
@@ -188,6 +195,12 @@ public class GameManager : MonoBehaviour
             {
                 button.TextJuicer.SetProgress(progress);
                 button.TextJuicer.Update();
+            }
+            
+            foreach (var textJuicer in SecondScreen.TextJuicers)
+            {
+                textJuicer.SetProgress(progress);
+                textJuicer.Update();
             }
             
             ZagolovokJuicer.SetProgress(progress);
@@ -235,7 +248,7 @@ public class GameManager : MonoBehaviour
                 {
                     animTexts[i].SetText(Default_Uzb[i]);
                 }
-                MainText.SetText(Main_Uzb);
+                
                 break;
             }
             case 1:
@@ -244,7 +257,7 @@ public class GameManager : MonoBehaviour
                 {
                     animTexts[i].SetText(Default_Rus[i]);
                 }
-                MainText.SetText(Main_Rus);
+                
                 break;
             }
         }
@@ -253,6 +266,7 @@ public class GameManager : MonoBehaviour
 
     private void OnDefault()
     {
+        SecondScreen.gameObject.SetActive(true);
         DefaultScreen.SetActive(true);
         if(_coroutine != null)
             StopCoroutine(_coroutine);
